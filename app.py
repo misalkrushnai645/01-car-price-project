@@ -7,7 +7,7 @@ st.title("Car Price Prediction App")
 
 pipe = pickle.load(open("CPP.pkl", "rb"))
 df = pd.read_csv("final_data.csv")
-companies = sorted(df["company"].unique())
+companies = sorted(df["Company"].unique())
 years = range(2000, 2027)
 
 company = st.sidebar.selectbox("Select company", companies)
@@ -32,7 +32,7 @@ if st.sidebar.button("Predict Price"):
     myinput = pd.DataFrame(data = myinput, columns = columns)
     result = pipe.predict(myinput)
 
-    if result[0,0] < 0:
+    if result[0] < 0:
         st.write("Sorry, the predicted price is negative. Please check your input values.")
     else:
-        st.write("Predicted price is:", str(round(result[0,0])))
+        st.write("Predicted price is:", str(round(result[0], 2)))
