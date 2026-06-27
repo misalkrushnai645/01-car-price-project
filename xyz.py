@@ -1,13 +1,4 @@
-import numpy as np
-import pandas as pd
-import sklearn
-import streamlit as st
-
-print("NumPy version:",
-np.__version__)
-print("Pandas version:",
-pd.__version__)
-print("Scikit-learn version:",
-sklearn.__version__)
-print("Streamlit version:",
-st.__version__)
+2.4.6
+3.0.3
+1.9.0
+1.58.0
