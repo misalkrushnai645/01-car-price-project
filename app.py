@@ -5,9 +5,11 @@ import numpy as np
 import pandas as pd
 
 st.title("Car Price Predictor")
-
-company = st.text_input("Enter company")
-name = st.text_input("Enter car name")
+car = pd.read_csv("final_data.csv")
+company = st.selectbox("Select company",
+    sorted(car["company"].unique()))
+name = st.selectbox("Select name",
+    sorted(car["name"].unique()))
 year = st.number_input("Enter year", min_value=2000, max_value=2024, 
                        step=1)
 kms_driven = st.number_input("Enter kilometers driven", 
