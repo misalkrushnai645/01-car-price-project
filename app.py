@@ -20,6 +20,6 @@ if st.button("Predict Price"):
     data = [[company, name, year, kms_driven, fuel_type]]
     columns = ['company', 'name', 'year', 'kms_driven', 'fuel_type']
     df = pd.DataFrame(data, columns=columns)
-    st.write(df)
+   #st.write(df)
     result = model.predict(df)
     st.write("Predicted price: ₹",round(result[0,0]))
