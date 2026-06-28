@@ -16,7 +16,7 @@ kms_driven = st.number_input("Enter kilometers driven",
 fuel_type = st.selectbox("Select fuel type", ["Petrol", "Diesel", "LPG"])
 
 if st.button("Predict Price"):
-    model = pkl.load(open("model.pkl", "rb+"))
+    model = pkl.load(open("CPP.pkl", "rb"))
     data = [[company, name, year, kms_driven, fuel_type]]
     columns = ['company', 'name', 'year', 'kms_driven', 'fuel_type']
     df = pd.DataFrame(data, columns=columns)
