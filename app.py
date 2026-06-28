@@ -1,38 +1,25 @@
+#streamlit run app.py
 import streamlit as st
+import pickle as pkl
 import numpy as np
 import pandas as pd
-import pickle
 
-st.title("Car Price Prediction App")
+st.title("Car Price Predictor")
 
-pipe = pickle.load(open("CPP.pkl", "rb"))
-df = pd.read_csv("final_data.csv")
-companies = sorted(df["company"].unique())
-years = range(2000, 2027)
+company = st.text_input("Enter company")
+name = st.text_input("Enter car name")
+year = st.number_input("Enter year", min_value=2000, max_value=2024, 
+                       step=1)
+kms_driven = st.number_input("Enter kilometers driven", 
+                             min_value=10000, max_value=400000, 
+                             step = 5000)
+fuel_type = st.selectbox("Select fuel type", ["Petrol", "Diesel", "LPG"])
 
-company = st.sidebar.selectbox("Select company", companies)
-
-names = sorted(df[df['company'] == company]["name"].unique())
-
-name = st.sidebar.selectbox("Select name", names)
-year = st.sidebar.selectbox("Select year", years)
-km_driven = st.sidebar.number_input("Enter km driven", value=50000, min_value=1000, max_value=200000, step=1000)
-fuel = st.sidebar.selectbox("Select fuel type", ["Petrol", "Diesel"])
-
-if st.sidebar.button("Predict Price"):
-    st.write("You have selected:")
-    st.write(f"Company: {company}") 
-    st.write(f"Name: {name}")
-    st.write(f"Year: {year}")
-    st.write(f"Kilometers Driven: {km_driven}")
-    st.write(f"Fuel Type: {fuel}")
-    #check for user input
-    myinput = [[company, name, year, km_driven, fuel]]
+if st.button("Predict Price"):
+    model = pkl.load(open("model.pkl", "rb+"))
+    data = [[company, name, year, kms_driven, fuel_type]]
     columns = ['company', 'name', 'year', 'kms_driven', 'fuel_type']
-    myinput = pd.DataFrame(data = myinput, columns = columns)
-    result = pipe.predict(myinput)
-
-    if result[0] < 0:
-        st.write("Sorry, the predicted price is negative. Please check your input values.")
-    else:
-        st.write("Predicted price is:", str(round(result[0], 2)))
+    df = pd.DataFrame(data, columns=columns)
+    st.write(df)
+    result = model.predict(df)
+    st.write("Predicted price:", round(result[0,0]))
