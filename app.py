@@ -42,5 +42,14 @@ if st.sidebar.button("Predict Price"):
    columns = ["company", "name", "year", "kms_driven", "fuel_type"])
    # df = pd.DataFrame(data, columns=columns)
    #st.write(df)
-   result = model.predict(df)
+   result = model.predict(df) 
+
+# Output Below title(Main Page)
+   st.write("### Predicting for")
+   st.write(f"Company: {company}")
+   st.write(f"Name: {name}")
+   st.write(f"Year: {year}")
+   st.write(f"kms_driven: {kms_driven}")
+   st.write(f"fuel_type: {fuel_type}")
+    
    st.write("Predicted price: ₹",round(result[0,0]))
