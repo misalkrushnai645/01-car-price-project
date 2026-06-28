@@ -29,5 +29,5 @@ if st.sidebar.button("Predict Price"):
    #columns = ['company', 'name', 'year', 'kms_driven', 'fuel_type']
    # df = pd.DataFrame(data, columns=columns)
    #st.write(df)
-   result = model.predict(df)
+   result = model.predict(data)
    st.write("Predicted price: ₹",round(result[0,0]))
