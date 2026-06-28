@@ -23,7 +23,7 @@ kms_driven = st.sidebar.number_input("Enter kilometers driven",
 fuel_type = st.sidebar.selectbox("Select fuel type", ["Petrol", "Diesel", "LPG"])
 
 # Main button
-if st.button("Predict Price"):
+if st.sidebar.button("Predict Price"):
     model = pkl.load(open("CPP.pkl", "rb"))
     data = [[company, name, year, kms_driven, fuel_type]]
     columns = ['company', 'name', 'year', 'kms_driven', 'fuel_type']
