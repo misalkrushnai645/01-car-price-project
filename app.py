@@ -37,7 +37,7 @@ fuel_type = st.sidebar.selectbox(
 
 # Main button
 if st.sidebar.button("Predict Price"):
-   model = pkl.load(open("CPP.pkl", "rb"))
+   model = pkl.load(open("pipe.pickle", "rb"))
    df = pd.DataFrame([[company, name, year, kms_driven, fuel_type]],
    columns = ["company", "name", "year", "kms_driven", "fuel_type"])
    # df = pd.DataFrame(data, columns=columns)
