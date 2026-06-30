@@ -52,4 +52,4 @@ if st.sidebar.button("Predict Price"):
    st.write(f"kms_driven: {kms_driven}")
    st.write(f"fuel_type: {fuel_type}")
     
-   st.write("Predicted price: ₹",round(result[0]))
+   st.write("Predicted price: ₹",round(result[0,0]))
