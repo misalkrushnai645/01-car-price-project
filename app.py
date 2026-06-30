@@ -17,7 +17,7 @@ company = st.sidebar.selectbox(
 )
 name = st.sidebar.selectbox(
     "Select name",
-    sorted(car["name"].unique())
+    sorted(car[car["company"] == company]["name"].unique())
 )
 year = st.sidebar.number_input(
     "Enter year",
