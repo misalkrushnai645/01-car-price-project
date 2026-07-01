@@ -17,7 +17,7 @@ company = st.sidebar.selectbox("Select company", companies)
 names = sorted(df[df["company"] == company]["name"].unique())
 
 name = st.sidebar.selectbox("Select name", names)
-year = st.sidebar.selectbox("Select year", years)
+year = st.sidebar.number_input("Select year", years)
 kms_driven = st.sidebar.number_input(
     "Enter km driven",
     value=50000,
