@@ -48,9 +48,9 @@ if st.sidebar.button("Predict Price"):
     result = pipe.predict(myinput)
 
     if result[0,0] < 0:
-        st.success("Sorry, the predicted price is negative. Please check your input values.")
+        st.info("Sorry, the predicted price is negative. Please check your input values.")
     else:
-        st.success(f"Predicted Price is: ₹ {round(result[0,0])}")
+        st.info(f"Predicted Price is: ₹ {round(result[0,0])}")
           
 
 
