@@ -4,52 +4,52 @@ import pickle as pkl
 import numpy as np
 import pandas as pd
 
-st.title("Car Price Predictor")
+st.title("Car Price Prediction App")
 
-car = pd.read_csv("final_data.csv")
+pipe = pkl.load(open("pipe.pkl","rb"))
+df = pd.read_csv("final_data.csv")
 
-# Sidebar start
-st.sidebar.header("Enter Car Details")
+companies = sorted(df["company"].unique())
+years = range(2000, 2027)
 
-company = st.sidebar.selectbox(
-    "Select company",
-    sorted(car["company"].unique())
-)
-name = st.sidebar.selectbox(
-    "Select name",
-    sorted(car[car["company"] == company]["name"].unique())
-)
-year = st.sidebar.number_input(
-    "Enter year",
-     min_value=2000,
-     max_value=2024, 
-     step=1
-)
+company = st.sidebar.selectbox("Select company", companies)
+
+names = sorted(df[df["company"] == company]["name"].unique())
+
+name = st.sidebar.selectbox("Select name", names)
+year = st.sidebar.selectbox("Select year", years)
 kms_driven = st.sidebar.number_input(
-    "Enter kilometers driven", 
-     min_value=10000, 
-     max_value=400000, 
-     step = 5000
+    "Enter km driven",
+    value=50000,
+    min_value=1000,
+    max_value=200000
 )
-fuel_type = st.sidebar.selectbox(
-    "Select fuel type", 
-    ["Petrol", "Diesel", "LPG"])
 
-# Main button
+fuel = st.sidebar.selectbox(
+    "Select fuel type",
+    ["Petrol", "Disel"]
+)
+
 if st.sidebar.button("Predict Price"):
-   model = pkl.load(open("pipe.pickle", "rb"))
-   df = pd.DataFrame([[company, name, year, kms_driven, fuel_type]],
-   columns = ["company", "name", "year", "kms_driven", "fuel_type"])
-   # df = pd.DataFrame(data, columns=columns)
-   #st.write(df)
-   result = model.predict(df) 
 
-# Output Below title(Main Page)
-   st.write("### Predicting for")
-   st.write(f"Company: {company}")
-   st.write(f"Name: {name}")
-   st.write(f"Year: {year}")
-   st.write(f"kms_driven: {kms_driven}")
-   st.write(f"fuel_type: {fuel_type}")
-    
-   st.write("Predicted price: ₹",round(result[0,0]))
+    st.write("You have selected:")
+    st.write(f"Company: {company}")
+    st.write(f"Name: {name}")
+    st.write(f"Year: {year}")
+    st.write(f"Kilometers Driven: {kms_driven}")
+    st.write(f"Fuel Type: {fuel}")
+
+    # check for user input
+    myinput = [[company, name, year, kms_driven, fuel]]
+    columns = ['company', 'name', 'year', 'kms_driven', 'fuel_type']
+
+    myinput = pd.DataFrame(data=myinput, columns=columns)
+
+    result = pipe.predict(myinput)
+
+    if result[0,0] < 0:
+        st.write("Sorry, the predicted price is negative. Please check your input values.")
+
+
+
+  
